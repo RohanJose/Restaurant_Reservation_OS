@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Review Your Seats</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container mt-5">
+    <h2>Review Your Seats</h2>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Seat ID</th>
+                <th>Date</th>
+                <th>Start Time</th>
+                <th>End Time</th>
+                <th>Number of Guests</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{ seat_id }}</td>
+                <td>{{ date }}</td>
+                <td>{{ start_time }}</td>
+                <td>{{ end_time }}</td>
+                <td>{{ num_guests }}</td>
+            </tr>
+        </tbody>
+    </table>
+    <form method="POST" action="{{ url_for('book_seat') }}">
+        <input type="hidden" name="seat_id" value="{{ seat_id }}">
+        <input type="hidden" name="date" value="{{ date }}">
+        <input type="hidden" name="start_time" value="{{ start_time }}">
+        <input type="hidden" name="end_time" value="{{ end_time }}">
+        <input type="hidden" name="num_guests" value="{{ num_guests }}">
+        <div class="mb-3">
+            <label for="email" class="form-label">Email:</label>
+            <input type="email" class="form-control" id="email" name="email" required>
+        </div>
+        <div class="mb-3">
+            <label for="payment_method" class="form-label">Payment Method:</label>
+            <select class="form-select" id="payment_method" name="payment_method" required>
+                <option value="card">Credit Card</option>
+                <option value="upi">UPI</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="card_number" class="form-label">Card Number:</label>
+            <input type="text" class="form-control" id="card_number" name="card_number">
+        </div>
+        <div class="mb-3">
+            <label for="cvv" class="form-label">CVV:</label>
+            <input type="text" class="form-control" id="cvv" name="cvv">
+        </div>
+        <button type="submit" class="btn btn-primary">Confirm Booking</button>
+    </form>
+    <a href="{{ url_for('available_seats') }}" class="btn btn-secondary">Change Seats</a>
+</div>
+</body>
+</html>

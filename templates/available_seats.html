@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Available Seats</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<div class="container mt-5">
+    <h2>Available Seats</h2>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Seat ID</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for seat, status in seats.items() %}
+                <tr>
+                    <td>{{ seat }}</td>
+                    <td>{{ status }}</td>
+                    <td>
+                        {% if status == 'available' %}
+                            <a href="{{ url_for('booking', seat_id=seat, date=date, start_time=start_time, end_time=end_time, num_guests=num_guests) }}" class="btn btn-success">Book</a>
+                        {% else %}
+                            <button class="btn btn-secondary" disabled>Booked</button>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{{ url_for('index') }}" class="btn btn-primary">Go Back</a>
+</div>
+</body>
+</html>
